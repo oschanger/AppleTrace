@@ -14,7 +14,7 @@ Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) or 加入微信�
 ## Feature
 
 1. User-defined trace section.
-2. **[arm64 only]** Trace all Objective C methods.
+2. **[arm64 under debugger only]** Trace all Objective C methods.
 
 ## Usage
 
