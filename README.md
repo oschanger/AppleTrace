@@ -56,7 +56,7 @@ Until now , there are 2 ways for generating trace data.
 	
 (2) Dynamic library hooking all objc_msgSend.
 
-	Hooking all objc_msgSend methods (based on HookZz). This only support arm64 under debugger (like lldb)
+	Hooking all objc_msgSend methods (based on HookZz). This only support arm64 under debugger ( lldb).
 	
 	Sample app is `sample/TraceAllMsgDemo`.
 
