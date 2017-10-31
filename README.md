@@ -3,7 +3,7 @@ Trace tool for iOS/macOS
 
 `AppleTrace` is developed for analyzing app's performance on `iOS/macOS`.
 
-Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace)
+Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) 或者加微信群（见页面最下面）
 
 - [中文说明，开发思路及方法](http://everettjf.com/2017/09/21/appletrace/)
 - [搭载MonkeyDev可trace第三方App](http://everettjf.com/2017/10/12/appletrace-dancewith-monkeydev/)
@@ -103,4 +103,11 @@ Open `sampledata/trace.html`.
 
 1. dtrace as data source.
 
+
+## Group
+
+1. [Gitter](https://gitter.im/appletrace/AppleTrace) 
+2. 微信群(若过期请先加微信 everettjf)
+
+![wechatgroup](image/wechatgroup.png)
 
