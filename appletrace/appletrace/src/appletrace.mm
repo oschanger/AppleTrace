@@ -167,7 +167,7 @@ namespace appletrace {
             __uint64_t thread_id=0;
             pthread_threadid_np(thread,&thread_id);
             uint64_t time = mach_absolute_time() * timeinfo_.numer / timeinfo_.denom;
-            uint64_t elapsed = time - begin_;
+            uint64_t elapsed = (time - begin_ )/ 1000.0;
             
             NSString *str = [NSString stringWithFormat:@"{\"name\":\"%s\",\"cat\":\"catname\",\"ph\":\"%s\",\"pid\":666,\"tid\":%llu,\"ts\":%llu}",
                               name,ph,thread_id,elapsed
