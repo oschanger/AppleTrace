@@ -36,29 +36,29 @@ Until now , there are 2 ways for generating trace data.
 
 (1) Manual set section.
 
-	Call `APTBeginSection` at the beginning of method ,and `APTEndSection` at the end of method. For Objective C method (whether instance method or class method), there are `APTBegin` and `APTEnd` macro for easy coding.
+Call `APTBeginSection` at the beginning of method ,and `APTEndSection` at the end of method. For Objective C method (whether instance method or class method), there are `APTBegin` and `APTEnd` macro for easy coding.
 	
-	```
-	void anyKindsOfMethod{
-	    APTBeginSection("process");
-	    // some code
-	    APTEndSection("process");
-	}
+```
+void anyKindsOfMethod{
+    APTBeginSection("process");
+    // some code
+    APTEndSection("process");
+}
+
+- (void)anyObjectiveCMethod{
+    APTBegin;
+    // some code
+    APTEnd;
+}
+```
 	
-	- (void)anyObjectiveCMethod{
-	    APTBegin;
-	    // some code
-	    APTEnd;
-	}
-	```
-	
-	Sample app is `sample/ManualSectionDemo`.
+Sample app is `sample/ManualSectionDemo`.
 	
 (2) Dynamic library hooking all objc_msgSend.
 
-	Hooking all objc_msgSend methods (based on HookZz). This only support arm64 under debugger ( lldb).
-	
-	Sample app is `sample/TraceAllMsgDemo`.
+Hooking all objc_msgSend methods (based on HookZz). This only support arm64 under debugger ( lldb).
+
+Sample app is `sample/TraceAllMsgDemo`.
 
 ### 2. Copy
 
