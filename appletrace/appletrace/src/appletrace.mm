@@ -148,6 +148,7 @@ namespace appletrace {
         dispatch_queue_t queue_;
         uint64_t begin_;
         mach_timebase_info_data_t timeinfo_;
+        __uint64_t main_thread_id=0;
     public:
         bool Open(){
             static dispatch_once_t onceToken;
@@ -166,14 +167,28 @@ namespace appletrace {
             pthread_t thread = pthread_self();
             __uint64_t thread_id=0;
             pthread_threadid_np(thread,&thread_id);
+            
             uint64_t time = mach_absolute_time() * timeinfo_.numer / timeinfo_.denom;
             uint64_t elapsed = (time - begin_ )/ 1000.0;
             
+            if(main_thread_id == 0 && pthread_main_np() != 0){
+                main_thread_id = thread_id;
+            }
+            
+            if(main_thread_id == thread_id){
+                thread_id = 0; // just make main thread id zero
+            }
+
             NSString *str = [NSString stringWithFormat:@"{\"name\":\"%s\",\"cat\":\"catname\",\"ph\":\"%s\",\"pid\":666,\"tid\":%llu,\"ts\":%llu}",
                               name,ph,thread_id,elapsed
                               ];
             dispatch_async(queue_, ^{
                 log_.AddLine(str.UTF8String);
+            });
+        }
+        void SyncWait(){
+            dispatch_sync(queue_, ^{
+                NSLog(@"AppleTrace SyncWait");
             });
         }
     };
@@ -200,6 +215,9 @@ namespace appletrace {
         void EndSection(const char* name){
             t_.WriteSection(name, "E");
         }
+        void SyncWait(){
+            t_.SyncWait();
+        }
     };
 }
 
@@ -210,4 +228,18 @@ void APTBeginSection(const char* name){
 void APTEndSection(const char* name){
     appletrace::TraceManager::Instance().EndSection(name);
 }
+
+void APTSyncWait(){
+    appletrace::TraceManager::Instance().SyncWait();
+}
+
+@interface APTInterface : NSObject
+@end
+@implementation APTInterface
++ (void)syncWait{
+    APTSyncWait();
+}
+@end
+
+
 
