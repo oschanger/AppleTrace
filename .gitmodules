@@ -1,0 +1,3 @@
+[submodule "catapult"]
+	path = catapult
+	url = git@github.com:catapult-project/catapult.git
