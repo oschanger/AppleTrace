@@ -26,6 +26,8 @@ Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) 或者加微信�
 git clone --recursive https://github.com/everettjf/AppleTrace.git
 ```
 
+For stable release , please refer to [Releases](https://github.com/everettjf/AppleTrace/releases)
+
 ## Usage
 
 1. Produce trace data.
