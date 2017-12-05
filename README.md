@@ -20,6 +20,12 @@ Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) 或者加微信�
 
 [Go to Wiki](https://github.com/everettjf/AppleTrace/wiki)
 
+## Clone
+
+```
+git clone --recursive https://github.com/everettjf/AppleTrace.git
+```
+
 ## Usage
 
 1. Produce trace data.
