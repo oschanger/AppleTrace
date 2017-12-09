@@ -1,3 +1,6 @@
 [submodule "catapult"]
 	path = catapult
 	url = git@github.com:catapult-project/catapult.git
+[submodule "hookzz"]
+	path = hookzz
+	url = git@github.com:jmpews/HookZz.git
