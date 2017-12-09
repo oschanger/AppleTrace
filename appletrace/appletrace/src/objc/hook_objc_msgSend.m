@@ -15,7 +15,7 @@
  *    limitations under the License.
  */
 
-#include "HookZz/include/hookzz.h"
+#include "hookzz/hookzz.h"
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
@@ -72,7 +72,7 @@ void objc_msgSend_pre_call(RegState *rs, ThreadStack *threadstack, CallStack *ca
         return;
     char *sel_name = (char *)rs->general.regs.x1;
     
-    // No More Work Here!!! it will be slow.
+    // The first filter algo
     if(!(LOG_ALL_SEL || (sel_name > log_sel_start_addr && sel_name < log_sel_end_addr))) {
         return;
     }
@@ -84,7 +84,8 @@ void objc_msgSend_pre_call(RegState *rs, ThreadStack *threadstack, CallStack *ca
         return;
     
     void *super_class_addr = class_getSuperclass(class_addr);
-    // KVO 2333
+    
+    // The second filter algo
     if(!(LOG_ALL_CLASS
        || (
            0
@@ -133,7 +134,7 @@ void objc_msgSend_post_call(RegState *rs, ThreadStack *threadstack, CallStack *c
 }
 
 + (void)hook_objc_msgSend {
-    ZzBuildHook((void *)objc_msgSend, NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call);
+    ZzBuildHook((void *)objc_msgSend, NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call,true);
     ZzEnableHook((void *)objc_msgSend);
 }
 @end

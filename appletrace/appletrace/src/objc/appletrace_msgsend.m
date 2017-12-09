@@ -22,8 +22,8 @@ BOOL APTIsIgnoredClass(const char* name){
     
     if(strlen(name) <=2)
         return YES;
-    
-    // todo
+
+    // add other filters
     
     return NO;
 }
