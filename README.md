@@ -95,9 +95,11 @@ python catapult/tracing/bin/trace2html appletracedata/trace.json --output=applet
 open trace.html
 ```
 
+*trace.html only support Chrome*
+
 ## SampleData
 
-Open `sampledata/trace.html`.
+Open `sampledata/trace.html` using Chrome.
 
 
 ## Dependencies
