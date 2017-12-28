@@ -24,7 +24,7 @@
 #import "appletrace.h"
 #import "appletrace_msgsend.h"
 
-#define KENABLE 1
+//#define KDISABLE
 
 struct section_64 *zz_macho_get_section_64_via_name(struct mach_header_64 *header, char *sect_name);
 zpointer zz_macho_get_section_64_address_via_name(struct mach_header_64 *header, char *sect_name);
@@ -48,7 +48,7 @@ int LOG_ALL_CLASS = 0;
 @implementation HookZz
 
 + (void)load {
-#if !(KENABLE)
+#ifdef KDISABLE
     return;
 #endif
     
