@@ -104,32 +104,36 @@ namespace appletrace {
     private:
         static int file_counter;
         Logger log_;
+        static NSString *work_dir;
+
     public:
         std::string GetFilePath(){
-            NSString * rootdir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
-            NSString * tmpdir = [rootdir stringByAppendingPathComponent:@"appletracedata"];
-            
-            NSString * log_name;
-            if(file_counter == 0){
+            if(!work_dir){
+                NSString * rootdir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
+                work_dir = [rootdir stringByAppendingPathComponent:@"appletracedata"];
+                
                 NSFileManager *fm = [NSFileManager defaultManager];
 #if kAppleTraceData_IncreaseSeqWhenExist
                 int seq = 1;
-                while([fm fileExistsAtPath:tmpdir]){
+                while([fm fileExistsAtPath:work_dir]){
                     NSString *dirname = [NSString stringWithFormat:@"appletracedata_%d",seq];
-                    tmpdir = [rootdir stringByAppendingPathComponent:dirname];
+                    work_dir = [rootdir stringByAppendingPathComponent:dirname];
                     ++seq;
                 }
 #else
-                [fm removeItemAtPath:tmpdir error:nil];
+                [fm removeItemAtPath:work_dir error:nil];
 #endif
                 
-                [fm createDirectoryAtPath:tmpdir withIntermediateDirectories:YES attributes:nil error:nil];
-                
+                [fm createDirectoryAtPath:work_dir withIntermediateDirectories:YES attributes:nil error:nil];
+            }
+            
+            NSString * log_name;
+            if(file_counter == 0){
                 log_name = @"trace.appletrace";
             }else{
                 log_name = [NSString stringWithFormat:@"trace_%@.appletrace",@(file_counter)];
             }
-            NSString * log_path = [tmpdir stringByAppendingPathComponent:log_name];
+            NSString * log_path = [work_dir stringByAppendingPathComponent:log_name];
             NSLog(@"log path = %@",log_path);
             return std::string(log_path.UTF8String);
         }
@@ -157,6 +161,7 @@ namespace appletrace {
         }
     };
     int LoggerManager::file_counter = 0;
+    NSString *LoggerManager::work_dir = nil;
     
     class Trace{
     private:
