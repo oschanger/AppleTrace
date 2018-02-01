@@ -19,6 +19,11 @@
 #include <unistd.h>
 #include <sys/mman.h>
 
+// When appletracedata directory exists, whether delete or use another directory name (by adding sequence number)
+// 0 for delete
+// 1 for use another name
+#define kAppleTraceData_IncreaseSeqWhenExist 0
+
 namespace appletrace {
     class Logger{
     private:
@@ -44,7 +49,7 @@ namespace appletrace {
                 NSLog(@"open file failed");
                 return false;
             }
-            off_t cur_off = ::lseek(fd_, block_size - 1, SEEK_SET);
+            ::lseek(fd_, block_size - 1, SEEK_SET);
             ssize_t wrote_bytes = ::write(fd_,"",1);
             if(wrote_bytes != 1){
                 NSLog(@"wrote error");
@@ -101,19 +106,30 @@ namespace appletrace {
         Logger log_;
     public:
         std::string GetFilePath(){
-            NSString * tmp_dir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
-            tmp_dir = [tmp_dir stringByAppendingPathComponent:@"appletracedata"];
+            NSString * rootdir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
+            NSString * tmpdir = [rootdir stringByAppendingPathComponent:@"appletracedata"];
             
             NSString * log_name;
             if(file_counter == 0){
-                [[NSFileManager defaultManager] removeItemAtPath:tmp_dir error:nil];
-                [[NSFileManager defaultManager] createDirectoryAtPath:tmp_dir withIntermediateDirectories:YES attributes:nil error:nil];
+                NSFileManager *fm = [NSFileManager defaultManager];
+#if kAppleTraceData_IncreaseSeqWhenExist
+                int seq = 1;
+                while([fm fileExistsAtPath:tmpdir]){
+                    NSString *dirname = [NSString stringWithFormat:@"appletracedata_%d",seq];
+                    tmpdir = [rootdir stringByAppendingPathComponent:dirname];
+                    ++seq;
+                }
+#else
+                [fm removeItemAtPath:tmpdir error:nil];
+#endif
+                
+                [fm createDirectoryAtPath:tmpdir withIntermediateDirectories:YES attributes:nil error:nil];
                 
                 log_name = @"trace.appletrace";
             }else{
                 log_name = [NSString stringWithFormat:@"trace_%@.appletrace",@(file_counter)];
             }
-            NSString * log_path = [tmp_dir stringByAppendingPathComponent:log_name];
+            NSString * log_path = [tmpdir stringByAppendingPathComponent:log_name];
             NSLog(@"log path = %@",log_path);
             return std::string(log_path.UTF8String);
         }
