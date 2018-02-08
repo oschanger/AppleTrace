@@ -1,4 +1,7 @@
 catapult/* linguist-vendored
+sampledata/* linguist-vendored
+sample/* linguist-vendored
+
 #sources
 *.c text
 *.cc text
