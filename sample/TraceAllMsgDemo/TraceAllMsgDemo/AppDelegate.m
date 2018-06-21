@@ -20,6 +20,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSTimeInterval t = [UIApplication sharedApplication].backgroundTimeRemaining;
+    NSLog(@"%@",@(t));
+    
     [self myTest];
 
     usleep(200);
@@ -36,7 +39,7 @@
     return YES;
 }
 - (void)myTest{
-    NSLog(@"my test");
+//    NSLog(@"my test");
 }
 
 - (void)levelOne{

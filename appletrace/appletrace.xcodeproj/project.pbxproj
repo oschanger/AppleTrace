@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB249CAB20DBA659009E3855 /* libhookzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB249CAA20DBA659009E3855 /* libhookzz.a */; };
 		CBAD2D031F7CF46200A527E5 /* appletrace_msgsend.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAD2D011F7CF46200A527E5 /* appletrace_msgsend.m */; };
 		CBAD2D041F7CF46200A527E5 /* appletrace_msgsend.h in Headers */ = {isa = PBXBuildFile; fileRef = CBAD2D021F7CF46200A527E5 /* appletrace_msgsend.h */; };
 		D17E99EB1F72DFC20034AAE7 /* appletrace.h in Headers */ = {isa = PBXBuildFile; fileRef = D17E998B1F72DFC20034AAE7 /* appletrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D17E99EC1F72DFC20034AAE7 /* appletrace.mm in Sources */ = {isa = PBXBuildFile; fileRef = D17E998C1F72DFC20034AAE7 /* appletrace.mm */; };
 		D17E99ED1F72DFC20034AAE7 /* hook_objc_msgSend.m in Sources */ = {isa = PBXBuildFile; fileRef = D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D1BE0D661FDC55080082D362 /* libhookzz.static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BE0D631FDC55080082D362 /* libhookzz.static.a */; };
 		D1BE0D671FDC55080082D362 /* hookzz.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BE0D641FDC55080082D362 /* hookzz.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB249CAA20DBA659009E3855 /* libhookzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libhookzz.a; sourceTree = "<group>"; };
 		CBAD2D011F7CF46200A527E5 /* appletrace_msgsend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = appletrace_msgsend.m; sourceTree = "<group>"; };
 		CBAD2D021F7CF46200A527E5 /* appletrace_msgsend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appletrace_msgsend.h; sourceTree = "<group>"; };
 		D17E997F1F72DF300034AAE7 /* appletrace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = appletrace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,7 +25,6 @@
 		D17E998B1F72DFC20034AAE7 /* appletrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appletrace.h; sourceTree = "<group>"; };
 		D17E998C1F72DFC20034AAE7 /* appletrace.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = appletrace.mm; sourceTree = "<group>"; };
 		D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hook_objc_msgSend.m; sourceTree = "<group>"; };
-		D1BE0D631FDC55080082D362 /* libhookzz.static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libhookzz.static.a; sourceTree = "<group>"; };
 		D1BE0D641FDC55080082D362 /* hookzz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hookzz.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -33,7 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1BE0D661FDC55080082D362 /* libhookzz.static.a in Frameworks */,
+				CB249CAB20DBA659009E3855 /* libhookzz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +89,7 @@
 		D1BE0D611FDC55080082D362 /* hookzz */ = {
 			isa = PBXGroup;
 			children = (
-				D1BE0D631FDC55080082D362 /* libhookzz.static.a */,
+				CB249CAA20DBA659009E3855 /* libhookzz.a */,
 				D1BE0D641FDC55080082D362 /* hookzz.h */,
 			);
 			path = hookzz;
