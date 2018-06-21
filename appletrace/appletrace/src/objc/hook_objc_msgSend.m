@@ -198,7 +198,7 @@ void objc_msgSend_pre_call(RegState *rs, ThreadStackPublic *threadstack, CallSta
     snprintf(repl_name, repl_len, "[%s]%s",class_name,sel_name);
     STACK_SET(callstack, "repl_name", repl_name, char*);
     
-    NSLog(@"pre %s",repl_name);
+//    NSLog(@"pre %s",repl_name);
     APTBeginSection(repl_name);
 }
 
