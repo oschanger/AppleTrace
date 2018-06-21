@@ -26,6 +26,14 @@ Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) 或者加微信�
 git clone --recursive https://github.com/everettjf/AppleTrace.git
 ```
 
+or
+
+```
+git clone git@github.com:everettjf/AppleTrace.git
+cd AppleTrace
+git submodule update --init --recursive
+```
+
 For stable release , please refer to [Releases](https://github.com/everettjf/AppleTrace/releases)
 
 ## Usage
