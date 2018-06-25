@@ -16,7 +16,7 @@
                 void * ret = dlopen([libraryPath UTF8String], RTLD_NOW);
                 if(ret == 0){
                     const char * errinfo = dlerror();
-                    NSLog(@"AppleTraceLoader load failed : %s",errinfo);
+                    NSLog(@"AppleTraceLoader load failed : %@",[NSString stringWithUTF8String: errinfo]);
                 }else{
                     NSLog(@"AppleTraceLoader loaded %@", libraryPath);
                 }

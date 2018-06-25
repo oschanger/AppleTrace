@@ -311,6 +311,7 @@
 				DEVELOPMENT_TEAM = YPV49M8592;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ManualSectionDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.everettjf.ManualSectionDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -324,6 +325,7 @@
 				DEVELOPMENT_TEAM = YPV49M8592;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ManualSectionDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.everettjf.ManualSectionDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -349,6 +351,7 @@
 				D17E9A5B1F72E1860034AAE7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
