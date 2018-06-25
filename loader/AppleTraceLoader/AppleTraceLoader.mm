@@ -1,4 +1,4 @@
-#line 1 "/Users/qiwei/github/AppleTrace/tweak/AppleTraceLoader/AppleTraceLoader/AppleTraceLoader.xm"
+#line 1 "/Users/everettjf/github/AppleTrace/loader/AppleTraceLoader/AppleTraceLoader.xm"
 
 
 #if TARGET_OS_SIMULATOR
@@ -14,12 +14,15 @@ static __attribute__((constructor)) void _logosLocalCtor_344ae32b(int __unused a
 
         if([[prefs objectForKey:[NSString stringWithFormat:@"AppleTraceEnabled-%@", [[NSBundle mainBundle] bundleIdentifier]]] boolValue]) {
             if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPath]){
-                dlopen([libraryPath UTF8String], RTLD_NOW);
-
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"AppleTraceServerDidLoadNotification" object:nil];
-                NSLog(@"AppleTraceLoader loaded %@", libraryPath);
+                void * ret = dlopen([libraryPath UTF8String], RTLD_NOW);
+                if(ret == 0){
+                    const char * errinfo = dlerror();
+                    NSLog(@"AppleTraceLoader load failed : %s",errinfo);
+                }else{
+                    NSLog(@"AppleTraceLoader loaded %@", libraryPath);
+                }
             }else{
-                NSLog(@"AppleTraceServer not found");
+                NSLog(@"appletrace.framework not found");
             }
         }
     }

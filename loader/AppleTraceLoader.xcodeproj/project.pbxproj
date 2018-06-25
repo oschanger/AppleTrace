@@ -26,6 +26,7 @@
 		CBC88E7D20E0D93A009AB824 /* AppleTraceLoader.xm */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppleTraceLoader.xm; sourceTree = "<group>"; };
 		CBC88E7E20E0D93A009AB824 /* AppleTraceLoader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppleTraceLoader.mm; sourceTree = "<group>"; };
 		CBC88E8220E0D93A009AB824 /* AppleTraceLoader.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppleTraceLoader.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/AppleTraceLoader.plist; sourceTree = "<group>"; };
+		D155468E20E13C4B00AB7977 /* appletrace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = appletrace.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +101,7 @@
 		CBC88E7520E0D93A009AB824 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				D155468D20E13C4B00AB7977 /* Frameworks */,
 				CBC88E7620E0D93A009AB824 /* PreferenceLoader */,
 				CBC88E8020E0D93A009AB824 /* MobileSubstrate */,
 			);
@@ -146,6 +148,15 @@
 				CBC88E8220E0D93A009AB824 /* AppleTraceLoader.plist */,
 			);
 			name = DynamicLibraries;
+			sourceTree = "<group>";
+		};
+		D155468D20E13C4B00AB7977 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D155468E20E13C4B00AB7977 /* appletrace.framework */,
+			);
+			name = Frameworks;
+			path = Package/Library/Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

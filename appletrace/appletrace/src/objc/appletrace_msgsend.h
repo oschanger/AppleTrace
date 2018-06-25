@@ -9,5 +9,4 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT void APTEnable(BOOL enable);
-FOUNDATION_EXPORT BOOL APTIsEnable();
-FOUNDATION_EXPORT BOOL APTIsIgnoredClass(const char* name);
+FOUNDATION_EXPORT BOOL APTIsEnable(void);

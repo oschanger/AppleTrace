@@ -13,12 +13,15 @@
 
         if([[prefs objectForKey:[NSString stringWithFormat:@"AppleTraceEnabled-%@", [[NSBundle mainBundle] bundleIdentifier]]] boolValue]) {
             if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPath]){
-                dlopen([libraryPath UTF8String], RTLD_NOW);
-
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"AppleTraceServerDidLoadNotification" object:nil];
-                NSLog(@"AppleTraceLoader loaded %@", libraryPath);
+                void * ret = dlopen([libraryPath UTF8String], RTLD_NOW);
+                if(ret == 0){
+                    const char * errinfo = dlerror();
+                    NSLog(@"AppleTraceLoader load failed : %s",errinfo);
+                }else{
+                    NSLog(@"AppleTraceLoader loaded %@", libraryPath);
+                }
             }else{
-                NSLog(@"AppleTraceServer not found");
+                NSLog(@"appletrace.framework not found");
             }
         }
     }

@@ -170,7 +170,7 @@ RetStatus ZzDynamicBinaryInstrumentation(void *address, STUBCALL stub_call_ptr);
 RetStatus ZzRuntimeCodePatch(void *address, void *code_data, unsigned long code_length);
 
 // enable debug info
-void DebugLogControlerEnableLog();
+void DebugLogControlerEnableLog(void);
 
 // disable hook
 RetStatus ZzDisableHook(void *target_ptr);

@@ -8,23 +8,12 @@
 
 #import "appletrace_msgsend.h"
 
-static BOOL apt_s_enabled = YES;
+static BOOL apt_s_enabled = YES; // default to enable
+
 void APTEnable(BOOL enable){
     apt_s_enabled = enable;
 }
 BOOL APTIsEnable(){
     return apt_s_enabled;
-}
-
-BOOL APTIsIgnoredClass(const char* name){
-    if(!name)
-        return YES;
-    
-    if(strlen(name) <=2)
-        return YES;
-
-    // add other filters
-    
-    return NO;
 }
 

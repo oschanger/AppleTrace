@@ -60,7 +60,7 @@ zz_ptr_t MachoKitGetSectionByName(mach_header_t *header, char *sect_name) {
     struct load_command *load_cmd;
     segment_command_t *seg_cmd;
     section_t *sect;
-    uintptr_t slide, linkEditBase;
+    uintptr_t slide=0, linkEditBase=0;
     
     load_cmd = (struct load_command *)((zz_addr_t)header + sizeof(mach_header_t));
     for (uint i = 0; i < header->ncmds;
@@ -113,11 +113,11 @@ char decollators[128] = {0};
 
 int LOG_ALL_CLASS = 0;
 
-@interface HookZz : NSObject
+@interface AppleTraceHookZz : NSObject
 
 @end
 
-@implementation HookZz
+@implementation AppleTraceHookZz
 
 + (void)load {
 #ifdef KDISABLE
@@ -133,65 +133,37 @@ int LOG_ALL_CLASS = 0;
     for (i = 0; i < filter_max; i++) {
         class_address_filters[i] = (char*)objc_getClass(class_name_filters[i]);
     }
-
-//    const struct mach_header *header = _dyld_get_image_header(0);
-//    struct segment_command_64 *seg_cmd_64_text = MachoKitGetSegmentByName((struct mach_header_64 *)header, (char *)"__TEXT");
-//    unsigned long slide = (void *)header - (void *)seg_cmd_64_text->vmaddr;
-//    struct section_64 *sect_64_1 = MachoKitGetSectionByName((struct mach_header_64 *)header, (char *)"__objc_methname");
-//    log_sel_start_addr = slide + (void *)sect_64_1->addr;
-//    log_sel_end_addr = log_sel_start_addr + sect_64_1->size;
-//
-//    struct section_64 *sect_64_2 = MachoKitGetSectionByName((struct mach_header_64 *)header, (char *)"__objc_data");
-//    log_class_start_addr = slide + (void *)sect_64_2->addr;
-//    log_class_end_addr = log_class_start_addr + sect_64_2->size;
-    
     
     [self hook_objc_msgSend];
+    NSLog(@"appletrace loaded");
 }
 
 void objc_msgSend_pre_call(RegState *rs, ThreadStackPublic *threadstack, CallStackPublic *callstack, const HookEntryInfo *info) {
     if(!APTIsEnable())
         return;
     char *sel_name = (char *)rs->ZREG(1);
-
-//    // The first filter algo
-//    if(!(sel_name > log_sel_start_addr && sel_name < log_sel_end_addr)) {
-//        return;
-//    }
     
     // bad code! correct-ref: https://github.com/DavidGoldman/InspectiveC/blob/299cef1c40e8a165c697f97bcd317c5cfa55c4ba/logging.mm#L27
     void *object_addr = (void *)rs->ZREG(0);
     void *class_addr  = object_getClass((id)object_addr);
     if (!class_addr)
         return;
-    //    void *super_class_addr = class_getSuperclass(class_addr);
 
     int i = 0;
     for (; class_address_filters[i] != 0; i++) {
         if ((zz_addr_t)class_address_filters[i] == (zz_addr_t)class_addr)
             break;
     }
-    if (class_address_filters[i])
+    if (class_address_filters[i]){
+        STACK_SET(callstack, "is_ignored", class_addr, void*);
         return;
+    }
 
-//    // The second filter algo
-//    if(!((class_addr >= log_class_start_addr && class_addr <= log_class_end_addr)
-////         || (super_class_addr > log_class_start_addr && super_class_addr < log_class_end_addr)
-//          )
-//       ) {
-//        return;
-//    }
-    
     memset(decollators, 45, 128);
     if(threadstack->size * 3 >= 128)
         return;
     decollators[threadstack->size * 3] = '\0';
     const char *class_name = object_getClassName(object_addr);
-    
-    if(APTIsIgnoredClass(class_name)){
-        STACK_SET(callstack, "is_ignored", class_name, char*);
-        return;
-    }
     
     unsigned long repl_len = strlen(class_name) + strlen(sel_name) + 10;
     char *repl_name = malloc(repl_len);
