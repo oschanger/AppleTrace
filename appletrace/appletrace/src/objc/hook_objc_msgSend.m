@@ -131,7 +131,7 @@ int LOG_ALL_CLASS = 0;
     filter_max = sizeof(class_name_filters) / sizeof(char *);
     int i;
     for (i = 0; i < filter_max; i++) {
-        class_address_filters[i] = objc_getClass(class_name_filters[i]);
+        class_address_filters[i] = (char*)objc_getClass(class_name_filters[i]);
     }
 
 //    const struct mach_header *header = _dyld_get_image_header(0);
@@ -223,7 +223,7 @@ void objc_msgSend_post_call(RegState *rs, ThreadStackPublic *threadstack, CallSt
     
 #if 1
     const struct mach_header *header = _dyld_get_image_header(0);
-    ZzHookGOT(header, "objc_msgSend", NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call);
+    ZzHookGOT((void*)header, "objc_msgSend", NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call);
 #else
     ZzHook((void *)objc_msgSend, NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call, false);
 #endif

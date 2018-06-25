@@ -2,3 +2,6 @@
 *.xcuserdatad
 .DS_Store
 .vscode
+loader/AppleTraceLoader.mm
+loader/Packages/
+loader/AppleTraceLoader/Package/Library/MobileSubstrate/DynamicLibraries/AppleTraceLoader.dylib
