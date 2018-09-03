@@ -16,7 +16,7 @@ Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) 或者页面最�
 ## Feature
 
 1. User-defined trace section.
-2. **[arm64 under debugger only]** Trace all Objective C methods.
+2. Trace Objective C methods.
 
 ## FAQ
 
@@ -129,7 +129,8 @@ Open `sampledata/trace.html` using Chrome.
 ## Group
 
 1. [Gitter](https://gitter.im/appletrace/AppleTrace) 
-2. 微信群(若过期请先加微信 everettjf ,备注AppleTrace)
+2. 关注微信订阅号
 
-![wechatgroup](image/wechatgroup.png)
+![fun](https://everettjf.github.io/images/fun.jpg)
+
 
