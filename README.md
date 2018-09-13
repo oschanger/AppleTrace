@@ -5,7 +5,7 @@ Trace tool for iOS/macOS
 
 ![logo](/image/appletrace-small.png)
 
-Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) 或者页面最下方的微信群
+Let's talk in [Gitter](https://gitter.im/appletrace/AppleTrace) 
 
 - [中文说明，开发思路及方法](http://everettjf.com/2017/09/21/appletrace/)
 - [搭载MonkeyDev可trace第三方App](http://everettjf.com/2017/10/12/appletrace-dancewith-monkeydev/)
