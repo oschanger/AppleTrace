@@ -128,8 +128,7 @@ Open `sampledata/trace.html` using Chrome.
 
 ## Group
 
-1. [Gitter](https://gitter.im/appletrace/AppleTrace) 
-2. 关注微信订阅号
+关注微信订阅号
 
 ![fun](https://everettjf.github.io/images/fun.jpg)
 
