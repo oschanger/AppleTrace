@@ -7,25 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB249CAB20DBA659009E3855 /* libhookzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB249CAA20DBA659009E3855 /* libhookzz.a */; };
-		CBAD2D031F7CF46200A527E5 /* appletrace_msgsend.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAD2D011F7CF46200A527E5 /* appletrace_msgsend.m */; };
-		CBAD2D041F7CF46200A527E5 /* appletrace_msgsend.h in Headers */ = {isa = PBXBuildFile; fileRef = CBAD2D021F7CF46200A527E5 /* appletrace_msgsend.h */; };
 		D17E99EB1F72DFC20034AAE7 /* appletrace.h in Headers */ = {isa = PBXBuildFile; fileRef = D17E998B1F72DFC20034AAE7 /* appletrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D17E99EC1F72DFC20034AAE7 /* appletrace.mm in Sources */ = {isa = PBXBuildFile; fileRef = D17E998C1F72DFC20034AAE7 /* appletrace.mm */; };
-		D17E99ED1F72DFC20034AAE7 /* hook_objc_msgSend.m in Sources */ = {isa = PBXBuildFile; fileRef = D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D1BE0D671FDC55080082D362 /* hookzz.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BE0D641FDC55080082D362 /* hookzz.h */; };
+		D17E99ED1F72DFC20034AAE7 /* load.m in Sources */ = {isa = PBXBuildFile; fileRef = D17E998E1F72DFC20034AAE7 /* load.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D1891C75202DFE90001CB5DF /* apt_hooker.c in Sources */ = {isa = PBXBuildFile; fileRef = D1891C74202DFE90001CB5DF /* apt_hooker.c */; };
+		D1891C78202DFE9D001CB5DF /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = D1891C76202DFE9D001CB5DF /* fishhook.c */; };
+		D1891C79202DFE9D001CB5DF /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = D1891C77202DFE9D001CB5DF /* fishhook.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CB249CAA20DBA659009E3855 /* libhookzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libhookzz.a; sourceTree = "<group>"; };
-		CBAD2D011F7CF46200A527E5 /* appletrace_msgsend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = appletrace_msgsend.m; sourceTree = "<group>"; };
-		CBAD2D021F7CF46200A527E5 /* appletrace_msgsend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appletrace_msgsend.h; sourceTree = "<group>"; };
 		D17E997F1F72DF300034AAE7 /* appletrace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = appletrace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D17E99831F72DF300034AAE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D17E998B1F72DFC20034AAE7 /* appletrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appletrace.h; sourceTree = "<group>"; };
 		D17E998C1F72DFC20034AAE7 /* appletrace.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = appletrace.mm; sourceTree = "<group>"; };
-		D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hook_objc_msgSend.m; sourceTree = "<group>"; };
-		D1BE0D641FDC55080082D362 /* hookzz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hookzz.h; sourceTree = "<group>"; };
+		D17E998E1F72DFC20034AAE7 /* load.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load.m; sourceTree = "<group>"; };
+		D1891C74202DFE90001CB5DF /* apt_hooker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = apt_hooker.c; sourceTree = "<group>"; };
+		D1891C76202DFE9D001CB5DF /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		D1891C77202DFE9D001CB5DF /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		D1891C7A202E0133001CB5DF /* apt_hooker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apt_hooker.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +32,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB249CAB20DBA659009E3855 /* libhookzz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,21 +76,13 @@
 		D17E998D1F72DFC20034AAE7 /* objc */ = {
 			isa = PBXGroup;
 			children = (
-				D1BE0D611FDC55080082D362 /* hookzz */,
-				CBAD2D021F7CF46200A527E5 /* appletrace_msgsend.h */,
-				CBAD2D011F7CF46200A527E5 /* appletrace_msgsend.m */,
-				D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */,
+				D17E998E1F72DFC20034AAE7 /* load.m */,
+				D1891C7A202E0133001CB5DF /* apt_hooker.h */,
+				D1891C74202DFE90001CB5DF /* apt_hooker.c */,
+				D1891C76202DFE9D001CB5DF /* fishhook.c */,
+				D1891C77202DFE9D001CB5DF /* fishhook.h */,
 			);
 			path = objc;
-			sourceTree = "<group>";
-		};
-		D1BE0D611FDC55080082D362 /* hookzz */ = {
-			isa = PBXGroup;
-			children = (
-				CB249CAA20DBA659009E3855 /* libhookzz.a */,
-				D1BE0D641FDC55080082D362 /* hookzz.h */,
-			);
-			path = hookzz;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,9 +92,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1BE0D671FDC55080082D362 /* hookzz.h in Headers */,
 				D17E99EB1F72DFC20034AAE7 /* appletrace.h in Headers */,
-				CBAD2D041F7CF46200A527E5 /* appletrace_msgsend.h in Headers */,
+				D1891C79202DFE9D001CB5DF /* fishhook.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +124,7 @@
 		D17E99761F72DF2F0034AAE7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = everettjf;
 				TargetAttributes = {
 					D17E997E1F72DF300034AAE7 = {
@@ -177,8 +166,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBAD2D031F7CF46200A527E5 /* appletrace_msgsend.m in Sources */,
-				D17E99ED1F72DFC20034AAE7 /* hook_objc_msgSend.m in Sources */,
+				D1891C78202DFE9D001CB5DF /* fishhook.c in Sources */,
+				D17E99ED1F72DFC20034AAE7 /* load.m in Sources */,
+				D1891C75202DFE90001CB5DF /* apt_hooker.c in Sources */,
 				D17E99EC1F72DFC20034AAE7 /* appletrace.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,23 +186,15 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -256,23 +238,15 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -314,10 +288,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/appletrace/src/objc/hookzz",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.everettjf.appletrace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -339,10 +310,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/appletrace/src/objc/hookzz",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.everettjf.appletrace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
