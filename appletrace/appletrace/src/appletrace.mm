@@ -225,7 +225,7 @@ namespace appletrace {
         
         TraceManager(){
             if(!t_.Open()){
-                NSLog(@"error open trace file");
+                printf("error open trace file\n");
             }
         }
         

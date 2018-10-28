@@ -185,14 +185,10 @@ void objc_msgSend_post_call(RegState *rs, ThreadStackPublic *threadstack, CallSt
 }
 
 + (void)hook_objc_msgSend {
-    DebugLogControlerEnableLog();
     
-#if 1
     const struct mach_header *header = _dyld_get_image_header(0);
     ZzHookGOT((void*)header, "objc_msgSend", NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call);
-#else
-    ZzHook((void *)objc_msgSend, NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call, false);
-#endif
+
 }
 @end
 
