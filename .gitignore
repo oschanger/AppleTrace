@@ -7,3 +7,6 @@ loader/Packages/
 loader/AppleTraceLoader/Package/Library/MobileSubstrate/DynamicLibraries/AppleTraceLoader.dylib
 appletrace/appletrace.xcodeproj/project.xcworkspace/xcuserdata/
 appletrace/appletrace.xcodeproj/xcuserdata/
+*.deb
+*.zip
+*.dylib

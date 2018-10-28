@@ -119,6 +119,8 @@ void objc_msgSend_post_call(RegState *rs, ThreadStack *threadstack, CallStack *c
 }
 
 + (void)hook_objc_msgSend {
+    NSLog(@"apple trace loaded");
+
     ZzBuildHook((void *)objc_msgSend, NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call,true);
     ZzEnableHook((void *)objc_msgSend);
 }
