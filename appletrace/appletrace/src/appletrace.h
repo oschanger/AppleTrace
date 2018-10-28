@@ -7,19 +7,11 @@
 //
 
 
-#if defined(__cplusplus)
-extern "C" {
-#else
-#endif
+#import <Foundation/Foundation.h>
 
-void APTBeginSection(const char* name);
-void APTEndSection(const char* name);
-void APTSyncWait();
-
-#if defined(__cplusplus)
-}
-#else
-#endif
+FOUNDATION_EXPORT void APTBeginSection(const char* name);
+FOUNDATION_EXPORT void APTEndSection(const char* name);
+FOUNDATION_EXPORT void APTSyncWait(void);
 
 // Objective C class method
 #define APTBegin APTBeginSection([NSString stringWithFormat:@"[%@]%@",self,NSStringFromSelector(_cmd)].UTF8String)
