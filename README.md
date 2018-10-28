@@ -104,6 +104,11 @@ open trace.html
 
 Open `sampledata/trace.html` using Chrome.
 
+## Thanks
+
+1. HookZz : https://github.com/jmpews/HookZz
+2. catapult : https://github.com/catapult-project/catapult
+
 ## Group
 
 欢迎关注微信订阅号，更多有趣的性能优化点点滴滴。
