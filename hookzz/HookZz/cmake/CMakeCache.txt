@@ -215,7 +215,7 @@ CMAKE_TOOLCHAIN_FILE:FILEPATH=/Users/everettjf/github/AppleTrace/hookzz/HookZz/c
 CMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
 //Enable debug log
-DEBUG:BOOL=ON
+DEBUG:BOOL=OFF
 
 //No help, variable specified on the command line.
 ENABLE_ARC:UNINITIALIZED=FALSE

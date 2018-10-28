@@ -17,7 +17,7 @@ cmake .. -G "Unix Makefiles" \
 -DIOS_ARCH=arm64 \
 -DENABLE_ARC=FALSE \
 -DENABLE_BITCODE=OFF \
--DDEBUG=ON \
+-DDEBUG=OFF \
 -DSHARED=OFF \
 -DPLATFORM=iOS \
 -DARCH=armv8 \
