@@ -7,21 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB249CAB20DBA659009E3855 /* libhookzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB249CAA20DBA659009E3855 /* libhookzz.a */; };
 		D17E99EB1F72DFC20034AAE7 /* appletrace.h in Headers */ = {isa = PBXBuildFile; fileRef = D17E998B1F72DFC20034AAE7 /* appletrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D17E99EC1F72DFC20034AAE7 /* appletrace.mm in Sources */ = {isa = PBXBuildFile; fileRef = D17E998C1F72DFC20034AAE7 /* appletrace.mm */; };
-		D17E99ED1F72DFC20034AAE7 /* hook_objc_msgSend.m in Sources */ = {isa = PBXBuildFile; fileRef = D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D1BE0D671FDC55080082D362 /* hookzz.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BE0D641FDC55080082D362 /* hookzz.h */; };
+		D1CC5A382185B70800726C5E /* hook_objc_msgSend.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CC5A372185B70800726C5E /* hook_objc_msgSend.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D1CC5A332185B6B700726C5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1CC5A2F2185B6B700726C5E /* HookZz.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 865F5FD01F6123390000622F;
+			remoteInfo = HookZz;
+		};
+		D1CC5A352185B6BE00726C5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1CC5A2F2185B6B700726C5E /* HookZz.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 865F5FCF1F6123390000622F;
+			remoteInfo = HookZz;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		CB249CAA20DBA659009E3855 /* libhookzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libhookzz.a; sourceTree = "<group>"; };
 		D17E997F1F72DF300034AAE7 /* appletrace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = appletrace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D17E99831F72DF300034AAE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D17E998B1F72DFC20034AAE7 /* appletrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appletrace.h; sourceTree = "<group>"; };
 		D17E998C1F72DFC20034AAE7 /* appletrace.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = appletrace.mm; sourceTree = "<group>"; };
-		D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hook_objc_msgSend.m; sourceTree = "<group>"; };
-		D1BE0D641FDC55080082D362 /* hookzz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hookzz.h; sourceTree = "<group>"; };
+		D1CC5A2F2185B6B700726C5E /* HookZz.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HookZz.xcodeproj; path = ../hookzz/ios/HookZz.xcodeproj; sourceTree = "<group>"; };
+		D1CC5A372185B70800726C5E /* hook_objc_msgSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hook_objc_msgSend.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB249CAB20DBA659009E3855 /* libhookzz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +52,7 @@
 		D17E99751F72DF2F0034AAE7 = {
 			isa = PBXGroup;
 			children = (
+				D1CC5A2F2185B6B700726C5E /* HookZz.xcodeproj */,
 				D17E99811F72DF300034AAE7 /* appletrace */,
 				D17E99801F72DF300034AAE7 /* Products */,
 			);
@@ -74,19 +88,17 @@
 		D17E998D1F72DFC20034AAE7 /* objc */ = {
 			isa = PBXGroup;
 			children = (
-				D1BE0D611FDC55080082D362 /* hookzz */,
-				D17E998E1F72DFC20034AAE7 /* hook_objc_msgSend.m */,
+				D1CC5A372185B70800726C5E /* hook_objc_msgSend.m */,
 			);
 			path = objc;
 			sourceTree = "<group>";
 		};
-		D1BE0D611FDC55080082D362 /* hookzz */ = {
+		D1CC5A302185B6B700726C5E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB249CAA20DBA659009E3855 /* libhookzz.a */,
-				D1BE0D641FDC55080082D362 /* hookzz.h */,
+				D1CC5A342185B6B700726C5E /* HookZz.framework */,
 			);
-			path = hookzz;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,7 +108,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1BE0D671FDC55080082D362 /* hookzz.h in Headers */,
 				D17E99EB1F72DFC20034AAE7 /* appletrace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +127,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D1CC5A362185B6BE00726C5E /* PBXTargetDependency */,
 			);
 			name = appletrace;
 			productName = appletrace;
@@ -148,12 +160,28 @@
 			mainGroup = D17E99751F72DF2F0034AAE7;
 			productRefGroup = D17E99801F72DF300034AAE7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D1CC5A302185B6B700726C5E /* Products */;
+					ProjectRef = D1CC5A2F2185B6B700726C5E /* HookZz.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D17E997E1F72DF300034AAE7 /* appletrace */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D1CC5A342185B6B700726C5E /* HookZz.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HookZz.framework;
+			remoteRef = D1CC5A332185B6B700726C5E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D17E997D1F72DF300034AAE7 /* Resources */ = {
@@ -170,12 +198,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D17E99ED1F72DFC20034AAE7 /* hook_objc_msgSend.m in Sources */,
+				D1CC5A382185B70800726C5E /* hook_objc_msgSend.m in Sources */,
 				D17E99EC1F72DFC20034AAE7 /* appletrace.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1CC5A362185B6BE00726C5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HookZz;
+			targetProxy = D1CC5A352185B6BE00726C5E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D17E99851F72DF300034AAE7 /* Debug */ = {

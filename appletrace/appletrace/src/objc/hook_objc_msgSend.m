@@ -22,140 +22,74 @@
 #import <mach-o/dyld.h>
 #import <dlfcn.h>
 #import "appletrace.h"
-#import <mach-o/dyld.h>
-
-#import <dlfcn.h>
-#import <mach-o/dyld.h>
-#import <objc/message.h>
-#import <objc/runtime.h>
-#import <mach-o/fat.h>
-
-#if defined(__LP64__)
-typedef struct mach_header_64 mach_header_t;
-typedef struct segment_command_64 segment_command_t;
-typedef struct section_64 section_t;
-typedef struct nlist_64 nlist_t;
-#define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT_64
-#else
-typedef struct mach_header mach_header_t;
-typedef struct segment_command segment_command_t;
-typedef struct section section_t;
-typedef struct nlist nlist_t;
-#define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT
-#endif
-
-typedef void *zz_ptr_t;
-typedef unsigned long zz_addr_t;
-
-#if defined(__LP64__)
-#define ZREG(n) general.regs.x##n
-#else
-#define ZREG(n) general.regs.r##n
-#endif
 
 //#define KDISABLE
 
-zz_ptr_t MachoKitGetSectionByName(mach_header_t *header, char *sect_name) {
-    struct load_command *load_cmd;
-    segment_command_t *seg_cmd;
-    section_t *sect;
-    uintptr_t slide=0, linkEditBase=0;
-    
-    load_cmd = (struct load_command *)((zz_addr_t)header + sizeof(mach_header_t));
-    for (uint i = 0; i < header->ncmds;
-         i++, load_cmd = (struct load_command *)((zz_addr_t)load_cmd + load_cmd->cmdsize)) {
-        if (load_cmd->cmd == LC_SEGMENT_ARCH_DEPENDENT) {
-            seg_cmd = (segment_command_t *)load_cmd;
-            if (seg_cmd->fileoff == 0 && seg_cmd->filesize != 0 && strcmp(seg_cmd->segname, "__TEXT") == 0) {
-                slide = (uintptr_t)header - seg_cmd->vmaddr;
-            }
-            if (strcmp(seg_cmd->segname, "__LINKEDIT") == 0) {
-                linkEditBase = seg_cmd->vmaddr - seg_cmd->fileoff + slide;
-            }
-            sect = (section_t *)((zz_addr_t)seg_cmd + sizeof(segment_command_t));
-            for (uint j = 0; j < seg_cmd->nsects;
-                 j++, sect = (section_t *)((zz_addr_t)sect + sizeof(section_t))) {
-                if (!strcmp(sect->sectname, sect_name)) {
-                    return (zz_ptr_t)(sect->addr + slide);
-                }
-            }
-        }
-    }
-    return NULL;
-}
+struct section_64 *zz_macho_get_section_64_via_name(struct mach_header_64 *header, char *sect_name);
+zpointer zz_macho_get_section_64_address_via_name(struct mach_header_64 *header, char *sect_name);
+struct segment_command_64 *zz_macho_get_segment_64_via_name(struct mach_header_64 *header, char *segment_name);
 
-segment_command_t *MachoKitGetSegmentByName(mach_header_t *header, char *segment_name) {
-    struct load_command *load_cmd;
-    segment_command_t *seg_cmd;
-    
-    load_cmd = (struct load_command *)((zz_addr_t)header + sizeof(mach_header_t));
-    for (uint i = 0; i < header->ncmds;
-         i++, load_cmd = (struct load_command *)((zz_addr_t)load_cmd + load_cmd->cmdsize)) {
-        if (load_cmd->cmd == LC_SEGMENT_ARCH_DEPENDENT) {
-            seg_cmd = (segment_command_t *)load_cmd;
-            if (!strcmp(seg_cmd->segname, segment_name)) {
-                return seg_cmd;
-            }
-        }
-    }
-    return NULL;
-}
+Class zz_macho_object_get_class(id object_addr);
 
-int filter_max                  = 0;
-char *class_address_filters[20] = {0};
-
-void * log_sel_start_addr = 0;
-void * log_sel_end_addr = 0;
-void * log_class_start_addr = 0;
-void * log_class_end_addr = 0;
+zpointer log_sel_start_addr = 0;
+zpointer log_sel_end_addr = 0;
+zpointer log_class_start_addr = 0;
+zpointer log_class_end_addr = 0;
 char decollators[128] = {0};
 
+int LOG_ALL_SEL = 0;
 int LOG_ALL_CLASS = 0;
 
-@interface AppleTraceHookZz : NSObject
+@interface HookZz : NSObject
 
 @end
 
-@implementation AppleTraceHookZz
+@implementation HookZz
 
 + (void)load {
-#ifdef KDISABLE
-    return;
-#endif
+    const struct mach_header *header = _dyld_get_image_header(0);
+    struct segment_command_64 *seg_cmd_64_text = zz_macho_get_segment_64_via_name((struct mach_header_64 *)header, (char *)"__TEXT");
+    zsize slide = (zaddr)header - (zaddr)seg_cmd_64_text->vmaddr;
+    struct section_64 *sect_64_1 = zz_macho_get_section_64_via_name((struct mach_header_64 *)header, (char *)"__objc_methname");
+    log_sel_start_addr = slide + (zaddr)sect_64_1->addr;
+    log_sel_end_addr = log_sel_start_addr + sect_64_1->size;
     
-    char *class_name_filters[20] = {
-//        "UIApplication", "AppDelegate",
-    };
+    struct section_64 *sect_64_2 = zz_macho_get_section_64_via_name((struct mach_header_64 *)header, (char *)"__objc_data");
+    log_class_start_addr = slide + (zaddr)sect_64_2->addr;
+    log_class_end_addr = log_class_start_addr + sect_64_2->size;
     
-    filter_max = sizeof(class_name_filters) / sizeof(char *);
-    int i;
-    for (i = 0; i < filter_max; i++) {
-        class_address_filters[i] = (char*)objc_getClass(class_name_filters[i]);
-    }
     
     [self hook_objc_msgSend];
-    NSLog(@"appletrace loaded");
 }
 
-void objc_msgSend_pre_call(RegState *rs, ThreadStackPublic *threadstack, CallStackPublic *callstack, const HookEntryInfo *info) {
-    char *sel_name = (char *)rs->ZREG(1);
+void objc_msgSend_pre_call(RegState *rs, ThreadStack *threadstack, CallStack *callstack) {
+    char *sel_name = (char *)rs->general.regs.x1;
+    
+    // The first filter algo
+    if(!(LOG_ALL_SEL || (sel_name > log_sel_start_addr && sel_name < log_sel_end_addr))) {
+        return;
+    }
     
     // bad code! correct-ref: https://github.com/DavidGoldman/InspectiveC/blob/299cef1c40e8a165c697f97bcd317c5cfa55c4ba/logging.mm#L27
-    void *object_addr = (void *)rs->ZREG(0);
-    void *class_addr  = object_getClass((id)object_addr);
-    if (!class_addr)
+    void *object_addr = (void *)rs->general.regs.x0;
+    void *class_addr = zz_macho_object_get_class((id)object_addr);
+    if(!class_addr)
         return;
-
-    int i = 0;
-    for (; class_address_filters[i] != 0; i++) {
-        if ((zz_addr_t)class_address_filters[i] == (zz_addr_t)class_addr)
-            break;
-    }
-    if (class_address_filters[i]){
-        STACK_SET(callstack, "is_ignored", class_addr, void*);
+    
+    void *super_class_addr = class_getSuperclass(class_addr);
+    
+    // The second filter algo
+    if(!(LOG_ALL_CLASS
+       || (
+           0
+//              || (object_addr > log_class_start_addr && object_addr < log_class_end_addr)
+          || (class_addr >= log_class_start_addr && class_addr <= log_class_end_addr)
+//              || (super_class_addr > log_class_start_addr && super_class_addr < log_class_end_addr)
+          )
+       )) {
         return;
     }
-
+    
     memset(decollators, 45, 128);
     if(threadstack->size * 3 >= 128)
         return;
@@ -167,11 +101,11 @@ void objc_msgSend_pre_call(RegState *rs, ThreadStackPublic *threadstack, CallSta
     snprintf(repl_name, repl_len, "[%s]%s",class_name,sel_name);
     STACK_SET(callstack, "repl_name", repl_name, char*);
     
-//    NSLog(@"pre %s",repl_name);
+    printf("pre %s\n",repl_name);
     APTBeginSection(repl_name);
 }
 
-void objc_msgSend_post_call(RegState *rs, ThreadStackPublic *threadstack, CallStackPublic *callstack, const HookEntryInfo *info) {
+void objc_msgSend_post_call(RegState *rs, ThreadStack *threadstack, CallStack *callstack) {
     if(STACK_CHECK_KEY(callstack, "is_ignored"))
         return;
 
@@ -185,11 +119,28 @@ void objc_msgSend_post_call(RegState *rs, ThreadStackPublic *threadstack, CallSt
 }
 
 + (void)hook_objc_msgSend {
-    
-    const struct mach_header *header = _dyld_get_image_header(0);
-    ZzHookGOT((void*)header, "objc_msgSend", NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call);
-
+    ZzBuildHook((void *)objc_msgSend, NULL, NULL, objc_msgSend_pre_call, objc_msgSend_post_call,true);
+    ZzEnableHook((void *)objc_msgSend);
 }
 @end
 
+Class zz_macho_object_get_class(id object_addr) {
+    if(!object_addr)
+        return NULL;
+#if 0
+    if(object_isClass(object_addr)) {
+        return object_addr;
+    } else {
+        return object_getClass(object_addr);
+    }
+#elif 1
+    return object_getClass(object_addr);
+#elif 0
+    Class kind = object_getClass(object_addr);
+    
+    if (class_isMetaClass(kind))
+        return object_addr;
+    return kind;
+#endif
+}
 
