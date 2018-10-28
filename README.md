@@ -85,7 +85,7 @@ python merge.py -d <appletracedata directory>
 
 This will produce `trace.json` in appletracedata directory.
 
-NOW !!!, you could drop `trace.json` into Chrome's `chrome://tracing`. Otherwise if you want to generate a html result, continue to the 4th step.
+NOW !!!, you could drop `trace.json` into Chrome's `chrome://tracing`. Or if you want to generate a html result, continue to the 4th step.
 
 ### 4. Generate
 
@@ -106,7 +106,7 @@ Open `sampledata/trace.html` using Chrome.
 
 ## Group
 
-关注微信订阅号
+欢迎关注微信订阅号，更多有趣的性能优化点点滴滴。
 
 ![fun](https://everettjf.github.io/images/fun.jpg)
 
