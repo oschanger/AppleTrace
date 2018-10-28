@@ -8,3 +8,4 @@ loader/AppleTraceLoader/Package/Library/MobileSubstrate/DynamicLibraries/AppleTr
 appletrace/appletrace.xcodeproj/project.xcworkspace/xcuserdata/
 appletrace/appletrace.xcodeproj/xcuserdata/
 hookzz/HookZz/cmake/CMakeFiles
+catapult/
