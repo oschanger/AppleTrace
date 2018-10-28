@@ -23,15 +23,7 @@ Trace tool for iOS/macOS
 ## Clone
 
 ```
-git clone --recursive https://github.com/everettjf/AppleTrace.git
-```
-
-or
-
-```
-git clone git@github.com:everettjf/AppleTrace.git
-cd AppleTrace
-git submodule update --init --recursive
+git clone https://github.com/everettjf/AppleTrace.git
 ```
 
 For stable release , please refer to [Releases](https://github.com/everettjf/AppleTrace/releases)
@@ -93,13 +85,16 @@ python merge.py -d <appletracedata directory>
 
 This will produce `trace.json` in appletracedata directory.
 
+NOW, you could drop `trace.json` into Chrome's `chrome://tracing`. Otherwise if you want to generate a html result, continue to the 4th step.
+
 ### 4. Generate
 
-Generate `trace.html` using `catapult`.
+Run `sh get_catapult.sh` to get catapult source.
+
+Then generate `trace.html` using `catapult`.
 
 ```
 python catapult/tracing/bin/trace2html appletracedata/trace.json --output=appletracedata/trace.html
-
 open trace.html
 ```
 
@@ -108,21 +103,6 @@ open trace.html
 ## SampleData
 
 Open `sampledata/trace.html` using Chrome.
-
-
-## Dependencies
-
-1. [catapult](https://github.com/catapult-project/catapult)
-2. [HookZz](https://github.com/jmpews/HookZz)
-
-
-
-## Develop Plan
-
-1. dtrace as data source.
-2. frida-trace as data source.
-3. llvm clang plugin for injecting code.
-
 
 ## Group
 
