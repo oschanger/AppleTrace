@@ -22,7 +22,6 @@
 #import <mach-o/dyld.h>
 #import <dlfcn.h>
 #import "appletrace.h"
-#import "appletrace_msgsend.h"
 #import <mach-o/dyld.h>
 
 #import <dlfcn.h>
@@ -139,8 +138,6 @@ int LOG_ALL_CLASS = 0;
 }
 
 void objc_msgSend_pre_call(RegState *rs, ThreadStackPublic *threadstack, CallStackPublic *callstack, const HookEntryInfo *info) {
-    if(!APTIsEnable())
-        return;
     char *sel_name = (char *)rs->ZREG(1);
     
     // bad code! correct-ref: https://github.com/DavidGoldman/InspectiveC/blob/299cef1c40e8a165c697f97bcd317c5cfa55c4ba/logging.mm#L27
@@ -175,9 +172,6 @@ void objc_msgSend_pre_call(RegState *rs, ThreadStackPublic *threadstack, CallSta
 }
 
 void objc_msgSend_post_call(RegState *rs, ThreadStackPublic *threadstack, CallStackPublic *callstack, const HookEntryInfo *info) {
-    if(!APTIsEnable())
-        return;
-    
     if(STACK_CHECK_KEY(callstack, "is_ignored"))
         return;
 
