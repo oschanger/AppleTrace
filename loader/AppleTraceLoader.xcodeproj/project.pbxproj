@@ -27,6 +27,7 @@
 		CBC88E7E20E0D93A009AB824 /* AppleTraceLoader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppleTraceLoader.mm; sourceTree = "<group>"; };
 		CBC88E8220E0D93A009AB824 /* AppleTraceLoader.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppleTraceLoader.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/AppleTraceLoader.plist; sourceTree = "<group>"; };
 		D155468E20E13C4B00AB7977 /* appletrace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = appletrace.framework; sourceTree = "<group>"; };
+		D1CC5A852186031800726C5E /* appletrace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = appletrace.framework; path = Package/usr/lib/TweakInject/appletrace.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +85,7 @@
 		CBC88E7220E0D93A009AB824 /* Package */ = {
 			isa = PBXGroup;
 			children = (
+				D1CC5A802186029800726C5E /* usr */,
 				CBC88E7320E0D93A009AB824 /* DEBIAN */,
 				CBC88E7520E0D93A009AB824 /* Library */,
 			);
@@ -157,6 +159,30 @@
 			);
 			name = Frameworks;
 			path = Package/Library/Frameworks;
+			sourceTree = "<group>";
+		};
+		D1CC5A802186029800726C5E /* usr */ = {
+			isa = PBXGroup;
+			children = (
+				D1CC5A812186029E00726C5E /* lib */,
+			);
+			name = usr;
+			sourceTree = "<group>";
+		};
+		D1CC5A812186029E00726C5E /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				D1CC5A82218602A300726C5E /* TweakInject */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		D1CC5A82218602A300726C5E /* TweakInject */ = {
+			isa = PBXGroup;
+			children = (
+				D1CC5A852186031800726C5E /* appletrace.framework */,
+			);
+			name = TweakInject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +259,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/opt/MonkeyDev/bin/md --xcbp-logos";
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp-logos\n";
 		};
 		CBC88E6620E0D93A009AB824 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -246,7 +272,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/opt/MonkeyDev/bin/md --xcbp";
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -331,6 +357,12 @@
 				DEVELOPMENT_TEAM = YPV49M8592;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppleTraceLoader/Package/Library/Frameworks",
+					"$(PROJECT_DIR)/AppleTraceLoader/Package/usr/lib/TweakInject",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppleTraceLoader/AppleTraceLoader-Prefix.pch";
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
@@ -357,6 +389,12 @@
 				DEVELOPMENT_TEAM = YPV49M8592;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppleTraceLoader/Package/Library/Frameworks",
+					"$(PROJECT_DIR)/AppleTraceLoader/Package/usr/lib/TweakInject",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppleTraceLoader/AppleTraceLoader-Prefix.pch";
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;

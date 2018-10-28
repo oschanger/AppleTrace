@@ -9,7 +9,15 @@
 %ctor {
     @autoreleasepool{
         NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.everettjf.AppleTraceLoader.plist"];
-        NSString *libraryPath = @"/Library/Frameworks/appletrace.framework/appletrace";
+
+        NSString *libraryPath;
+        if([UIDevice currentDevice].systemVersion.integerValue >= 11){
+            // iOS 11
+            libraryPath = @"/usr/lib/TweakInject/appletrace.framework/appletrace";
+        } else {
+            // iOS 10
+            libraryPath = @"/Library/Frameworks/appletrace.framework/appletrace";
+        }
 
         if([[prefs objectForKey:[NSString stringWithFormat:@"AppleTraceEnabled-%@", [[NSBundle mainBundle] bundleIdentifier]]] boolValue]) {
             if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPath]){
