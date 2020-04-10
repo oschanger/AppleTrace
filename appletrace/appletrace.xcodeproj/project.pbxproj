@@ -123,6 +123,7 @@
 				D17E997B1F72DF300034AAE7 /* Frameworks */,
 				D17E997C1F72DF300034AAE7 /* Headers */,
 				D17E997D1F72DF300034AAE7 /* Resources */,
+				B30D3AF123EBB37B00477C79 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -155,6 +156,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = D17E99751F72DF2F0034AAE7;
@@ -192,6 +194,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B30D3AF123EBB37B00477C79 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path. \ncp -R \"$CODESIGNING_FOLDER_PATH\" ../loader/AppleTraceLoader/Package/Library/Frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D17E997A1F72DF300034AAE7 /* Sources */ = {
@@ -332,6 +354,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YPV49M8592;
 				DYLIB_COMPATIBILITY_VERSION = 1;

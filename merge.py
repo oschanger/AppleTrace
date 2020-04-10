@@ -7,8 +7,8 @@
 #
 
 import os
+import json
 from optparse import OptionParser
-
 
 class Merger:
     def __init__(self,dir):
@@ -20,6 +20,7 @@ class Merger:
 
         self.output = open(self.output_path,'w')
         self.output.write('[\n')
+        self.jsons=[]
 
     def append(self,line):
         line = line.strip('\n')
@@ -28,8 +29,6 @@ class Merger:
         self.output.write(',\n')
 
     def merge_file(self,file_path):
-        print file_path
-
         file = open(file_path)
         while True:
             line = file.readline()
@@ -39,7 +38,33 @@ class Merger:
                 break
             self.append(line)
 
+    def merge_file_json(self,file_path):
+        file = open(file_path)
+        while True:
+            line = file.readline()
+            if not line or len(line) == 0:
+                break
+            if line[0] != '{':
+                break
+            line = line.strip('\n')
+            self.jsons.append(json.loads(line,strict=False))
+    
+    def write_json_to_result(self):
+        for j in self.jsons:
+            self.output.write(json.dumps(j))
+            self.output.write(',\n')
+
     def run(self):
+        for root,dirs,files in os.walk(self.dir):
+            for file in files:
+                if file.endswith("appletrace"):
+                    filepath = os.path.join(root,file)
+                    self.merge_file_json(filepath)
+        self.jsons.sort(key = lambda x:x["ts"])
+        self.write_json_to_result()
+        print("trace.json generate complete")
+
+    def run_old(self):
         i = 0
         while True:
             if i == 0:

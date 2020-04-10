@@ -6,7 +6,12 @@
 	<dict>
 		<key>Bundles</key>
 		<array>
+			<string>com.apple.ACCHWComponentAuthService</string>
 			<string>com.apple.UIKit</string>
+			<string>com.apple.springboard</string>
+			<string>com.apple.backboardd</string>
+			<string>com.apple.CarPlayApp</string>
+			<string>com.apple.CarKit</string>
 		</array>
 	</dict>
 </dict>

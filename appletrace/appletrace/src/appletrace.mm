@@ -18,6 +18,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <notify.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 // When appletracedata directory exists, whether delete or use another directory name (by adding sequence number)
 // 0 for delete
@@ -46,13 +49,13 @@ namespace appletrace {
             remove(log_path);
             fd_ = ::open(log_path, O_CREAT|O_RDWR,(mode_t)0600);
             if(fd_ == -1){
-                NSLog(@"open file failed");
+                NSLog(@"[AppleTrace] open file failed");
                 return false;
             }
             ::lseek(fd_, block_size - 1, SEEK_SET);
             ssize_t wrote_bytes = ::write(fd_,"",1);
             if(wrote_bytes != 1){
-                NSLog(@"wrote error");
+                NSLog(@"[AppleTrace] wrote error");
                 Close();
                 return false;
             }
@@ -60,13 +63,14 @@ namespace appletrace {
             
             file_start_ = (char*)::mmap(NULL,block_size,PROT_READ|PROT_WRITE,MAP_SHARED,fd_,0);
             if(file_start_ == MAP_FAILED){
-                NSLog(@"map failed");
+                NSLog(@"[AppleTrace] map failed");
                 Close();
                 return false;
             }
             file_cur_ = file_start_;
             return true;
         }
+
         void Close(){
             if(file_start_){
                 ::munmap(file_start_, block_size);
@@ -79,13 +83,14 @@ namespace appletrace {
             file_cur_ = NULL;
             cur_size_ = 0;
         }
+
         bool AddLine(const char * line){
             if(!file_cur_)
                 return false;
             
             size_t len = strlen(line);
             if(cur_size_ + len + 1> block_size){
-                NSLog(@"file full");
+                NSLog(@"[AppleTrace] file full cur:%zu len:%zu block:%d",cur_size_,len,block_size);
                 return false;
             }
             
@@ -108,11 +113,15 @@ namespace appletrace {
 
     public:
         std::string GetFilePath(){
-            if(!work_dir){
-                NSString * rootdir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
-                work_dir = [rootdir stringByAppendingPathComponent:@"appletracedata"];
-                
-                NSFileManager *fm = [NSFileManager defaultManager];
+            NSFileManager *fm = [NSFileManager defaultManager];
+            if(!work_dir || ![fm fileExistsAtPath:work_dir]){
+                NSString* rootdir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
+                NSProcessInfo *processInfo = [NSProcessInfo processInfo];
+                int pid = processInfo.processIdentifier;
+                NSString* processName = processInfo.processName;
+                //NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+                //NSString * bundleId = [infoDictionary objectForKey:@"CFBundleIdentifier"];
+                work_dir = [NSString stringWithFormat:@"/var/mobile/Library/AppleTrace/%d",pid];
 #if kAppleTraceData_IncreaseSeqWhenExist
                 int seq = 1;
                 while([fm fileExistsAtPath:work_dir]){
@@ -123,7 +132,6 @@ namespace appletrace {
 #else
                 [fm removeItemAtPath:work_dir error:nil];
 #endif
-                
                 [fm createDirectoryAtPath:work_dir withIntermediateDirectories:YES attributes:nil error:nil];
             }
             
@@ -134,9 +142,10 @@ namespace appletrace {
                 log_name = [NSString stringWithFormat:@"trace_%@.appletrace",@(file_counter)];
             }
             NSString * log_path = [work_dir stringByAppendingPathComponent:log_name];
-            NSLog(@"log path = %@",log_path);
+            NSLog(@"[AppleTrace] log path = %@",log_path);
             return std::string(log_path.UTF8String);
         }
+
         bool Open(){
             std::string path = GetFilePath();
             if(!log_.Open(path.c_str())){
@@ -145,18 +154,25 @@ namespace appletrace {
             ++file_counter;
             return true;
         }
+        
+        void Close(){
+            log_.Close();
+            work_dir = nil;
+            file_counter = 0;
+        }
+        
         void AddLine(const char *line){
             if(log_.AddLine(line))
                 return;
             
-            NSLog(@"will map a new file");
+            NSLog(@"[AppleTrace] will map a new file");
             // map a new file
             if(!Open())
                 return;
             
             if(!log_.AddLine(line)){
                 // error
-                NSLog(@"still error add line");
+                NSLog(@"[AppleTrace] still error add line");
             }
         }
     };
@@ -170,28 +186,48 @@ namespace appletrace {
         uint64_t begin_;
         mach_timebase_info_data_t timeinfo_;
         __uint64_t main_thread_id=0;
+        Boolean isStart = false;
     public:
-        bool Open(){
+        bool start(){
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
-                log_.Open();
-                
                 queue_ = dispatch_queue_create("appletrace.queue", DISPATCH_QUEUE_SERIAL);
-                mach_timebase_info(&timeinfo_);
-                begin_ = mach_absolute_time() * timeinfo_.numer / timeinfo_.denom;
-                
             });
+            log_.Open();
+            mach_timebase_info(&timeinfo_);
+
+            NSString* lockpath = @"/var/mobile/Library/AppleTrace/start.lock";
+            if ([[NSFileManager defaultManager]fileExistsAtPath:lockpath]) {
+                NSString* content = [NSString stringWithContentsOfFile:lockpath encoding:NSUTF8StringEncoding error:nil];
+                begin_ = [content longLongValue];
+            } else {
+                begin_ = mach_absolute_time() * timeinfo_.numer / timeinfo_.denom;
+            }
+            isStart = true;
             return true;
         }
         
+        void stop(){
+            isStart = false;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5ull * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                log_.Close(); //要等已经异步写文件写完才能close
+            });
+        }
+        
         void WriteSection(const char *name,const char *ph){
+            if (!isStart) {
+                return;
+            }
             pthread_t thread = pthread_self();
-            __uint64_t thread_id=0;
+            __uint64_t thread_id = 0;
             pthread_threadid_np(thread,&thread_id);
-            
+            NSString* processName = [NSProcessInfo processInfo].processName;
+            int pid = [NSProcessInfo processInfo].processIdentifier;
             uint64_t time = mach_absolute_time() * timeinfo_.numer / timeinfo_.denom;
             uint64_t elapsed = (time - begin_ )/ 1000.0;
-            
+            NSThread* curThread = [NSThread currentThread];
+            NSString* curThreadName = [curThread name];
+
             if(main_thread_id == 0 && pthread_main_np() != 0){
                 main_thread_id = thread_id;
             }
@@ -200,13 +236,14 @@ namespace appletrace {
                 thread_id = 0; // just make main thread id zero
             }
 
-            NSString *str = [NSString stringWithFormat:@"{\"name\":\"%s\",\"cat\":\"catname\",\"ph\":\"%s\",\"pid\":666,\"tid\":%llu,\"ts\":%llu}",
-                              name,ph,thread_id,elapsed
+            NSString *str = [NSString stringWithFormat:@"{\"name\":\"%s\",\"cat\":\"catname\",\"ph\":\"%s\",\"pid\":\"%@(%d)\",\"tid\":\"%@(%llu)\",\"ts\":%llu}",
+                              name,ph,processName,pid,curThreadName,thread_id,elapsed
                               ];
             dispatch_async(queue_, ^{
                 log_.AddLine(str.UTF8String);
             });
         }
+
         void SyncWait(){
             dispatch_sync(queue_, ^{
                 NSLog(@"AppleTrace SyncWait");
@@ -223,10 +260,33 @@ namespace appletrace {
             return o;
         }
         
-        TraceManager(){
-            if(!t_.Open()){
-                printf("error open trace file\n");
+        void CheckIsTraceAlreadyStarted(){
+            if ([[NSFileManager defaultManager]fileExistsAtPath:@"/var/mobile/Library/AppleTrace/start.lock"]) {
+                NSLog(@"[AppleTrace] start trace");
+                if(!t_.start()){
+                    NSLog(@"[AppleTrace] error open trace file");
+                }
             }
+        }
+        
+        TraceManager(){
+            static dispatch_once_t onceToken;
+              dispatch_once(&onceToken, ^{
+                  CheckIsTraceAlreadyStarted();
+                  //通知的注册
+                  int token;
+                  notify_register_dispatch("com.appletrace.start", &token, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(int token) {
+                      NSLog(@"[AppleTrace] receive start event");
+                      if(!t_.start()){
+                          NSLog(@"[AppleTrace] error open trace file");
+                      }
+                  });
+                  notify_register_dispatch("com.appletrace.stop", &token, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(int token) {
+                      NSLog(@"[AppleTrace] receive stop event");
+                      t_.stop();
+                  });
+                  
+              });
         }
         
         void BeginSection(const char* name){

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CBC88E6C20E0D93A009AB824 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC88E6B20E0D93A009AB824 /* UIKit.framework */; };
 		CBC88E6E20E0D93A009AB824 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC88E6D20E0D93A009AB824 /* Foundation.framework */; };
 		CBC88E7020E0D93A009AB824 /* CydiaSubstrate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC88E6F20E0D93A009AB824 /* CydiaSubstrate.framework */; };
 		CBC88E7F20E0D93A009AB824 /* AppleTraceLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBC88E7E20E0D93A009AB824 /* AppleTraceLoader.mm */; };
@@ -15,15 +14,11 @@
 
 /* Begin PBXFileReference section */
 		CBC88E6820E0D93A009AB824 /* AppleTraceLoader.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AppleTraceLoader.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		CBC88E6B20E0D93A009AB824 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CBC88E6D20E0D93A009AB824 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CBC88E6F20E0D93A009AB824 /* CydiaSubstrate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CydiaSubstrate.framework; path = Library/Frameworks/CydiaSubstrate.framework; sourceTree = DEVELOPER_DIR; };
 		CBC88E7420E0D93A009AB824 /* control */ = {isa = PBXFileReference; lastKnownFileType = text; name = control; path = Package/DEBIAN/control; sourceTree = "<group>"; };
-		CBC88E7820E0D93A009AB824 /* AppleTraceLoader.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppleTraceLoader.plist; path = Package/Library/PreferenceLoader/Preferences/AppleTraceLoader.plist; sourceTree = "<group>"; };
-		CBC88E7920E0D93A009AB824 /* AppleTraceLoaderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppleTraceLoaderIcon.png; path = Package/Library/PreferenceLoader/Preferences/AppleTraceLoaderIcon.png; sourceTree = "<group>"; };
-		CBC88E7A20E0D93A009AB824 /* AppleTraceLoaderIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppleTraceLoaderIcon@2x.png"; path = "Package/Library/PreferenceLoader/Preferences/AppleTraceLoaderIcon@2x.png"; sourceTree = "<group>"; };
 		CBC88E7C20E0D93A009AB824 /* AppleTraceLoader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppleTraceLoader-Prefix.pch"; sourceTree = "<group>"; };
-		CBC88E7D20E0D93A009AB824 /* AppleTraceLoader.xm */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppleTraceLoader.xm; sourceTree = "<group>"; };
+		CBC88E7D20E0D93A009AB824 /* AppleTraceLoader.xm */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = AppleTraceLoader.xm; sourceTree = "<group>"; };
 		CBC88E7E20E0D93A009AB824 /* AppleTraceLoader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppleTraceLoader.mm; sourceTree = "<group>"; };
 		CBC88E8220E0D93A009AB824 /* AppleTraceLoader.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppleTraceLoader.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/AppleTraceLoader.plist; sourceTree = "<group>"; };
 		D155468E20E13C4B00AB7977 /* appletrace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = appletrace.framework; sourceTree = "<group>"; };
@@ -35,7 +30,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBC88E6C20E0D93A009AB824 /* UIKit.framework in Frameworks */,
 				CBC88E6E20E0D93A009AB824 /* Foundation.framework in Frameworks */,
 				CBC88E7020E0D93A009AB824 /* CydiaSubstrate.framework in Frameworks */,
 			);
@@ -64,7 +58,6 @@
 		CBC88E6A20E0D93A009AB824 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CBC88E6B20E0D93A009AB824 /* UIKit.framework */,
 				CBC88E6D20E0D93A009AB824 /* Foundation.framework */,
 				CBC88E6F20E0D93A009AB824 /* CydiaSubstrate.framework */,
 			);
@@ -104,28 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				D155468D20E13C4B00AB7977 /* Frameworks */,
-				CBC88E7620E0D93A009AB824 /* PreferenceLoader */,
 				CBC88E8020E0D93A009AB824 /* MobileSubstrate */,
 			);
 			name = Library;
-			sourceTree = "<group>";
-		};
-		CBC88E7620E0D93A009AB824 /* PreferenceLoader */ = {
-			isa = PBXGroup;
-			children = (
-				CBC88E7720E0D93A009AB824 /* Preferences */,
-			);
-			name = PreferenceLoader;
-			sourceTree = "<group>";
-		};
-		CBC88E7720E0D93A009AB824 /* Preferences */ = {
-			isa = PBXGroup;
-			children = (
-				CBC88E7820E0D93A009AB824 /* AppleTraceLoader.plist */,
-				CBC88E7920E0D93A009AB824 /* AppleTraceLoaderIcon.png */,
-				CBC88E7A20E0D93A009AB824 /* AppleTraceLoaderIcon@2x.png */,
-			);
-			name = Preferences;
 			sourceTree = "<group>";
 		};
 		CBC88E7B20E0D93A009AB824 /* Supporting Files */ = {
@@ -202,11 +176,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CBC88E8520E0D93A009AB824 /* Build configuration list for PBXNativeTarget "AppleTraceLoader" */;
 			buildPhases = (
-				CBC88E6220E0D93A009AB824 /* ShellScript */,
+				CBC88E6220E0D93A009AB824 /* Run Script */,
 				CBC88E6320E0D93A009AB824 /* Sources */,
 				CBC88E6420E0D93A009AB824 /* Frameworks */,
 				CBC88E6520E0D93A009AB824 /* Headers */,
-				CBC88E6620E0D93A009AB824 /* ShellScript */,
+				B30D3AF023EBB1F900477C79 /* ShellScript */,
+				CBC88E6620E0D93A009AB824 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -248,26 +223,45 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CBC88E6220E0D93A009AB824 /* ShellScript */ = {
+		B30D3AF023EBB1F900477C79 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$SRCROOT\"/resign.sh\n";
+		};
+		CBC88E6220E0D93A009AB824 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/opt/MonkeyDev/bin/md --xcbp-logos\n";
 		};
-		CBC88E6620E0D93A009AB824 /* ShellScript */ = {
+		CBC88E6620E0D93A009AB824 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YPV49M8592;
@@ -384,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YPV49M8592;

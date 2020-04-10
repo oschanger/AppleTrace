@@ -1,5 +1,44 @@
 # AppleTrace
 
+## 使用说明
+1. 准备MonkeyDev环境
+2. 使用MonkeyDev安装下面两个目录的工具  
+a) appletrace ：hook主要逻辑  
+b) trace ：控制开始结束  
+3. 安装issh：  
+修改issh.sh里的trace输出目录outTracePath  
+执行目录下的install.sh
+4. 安装其他依赖工具：rsync/iproxy
+5. 端口映射：iproxy 2222 22
+6. issh shell连接手机
+7. issh setpid 设置你想抓trace的进程
+8. issh trace 自动抓取trace，默认5s  
+会自动使用rsync命令pull到当前目录，并执行merge，结果*.json文件使用chrome://tracing打开
+
+## MainFeature：
+- 可以控制开始结束点，可设置抓取时间
+- 运行时注入或冷启动进程的注入都可以
+- 添加方法参数内容打印，见hook_objc_msgSend.m的LOG_ARGS
+- 任意进程抓取，去掉对AppList/PreferenceLoader的依赖（经测试部分系统进程无法抓取）
+- 多进程抓取，最终合并到一个trace文件展示
+- 工程自动化：appletrace.framework编译完自动拷贝到loader并签名
+- 添加进程线程名
+
+## bugfix：
+- Ios13上部分系统进程缺少_TEXT段时空指针的崩溃
+
+## TODO：
+- 动态设置trace级别
+- 其他库打印
+
+## 依赖
+- Cydia rsync  文件传输
+- mobile substrate
+- MonkeyDev
+
+
+
+
 `AppleTrace` is developed for analyzing app's performance on `iOS`.
 
 *>> I have developed a replacement called [Messier](https://messier.app/) which is more easier to use. :)*
@@ -110,7 +149,7 @@ Open `sampledata/trace.html` using Chrome.
 
 1. HookZz : https://github.com/jmpews/HookZz
 2. catapult : https://github.com/catapult-project/catapult
-
+3. issh : https://github.com/4ch12dy/issh
 ## Group
 
 欢迎关注微信订阅号，更多有趣的性能优化点点滴滴。

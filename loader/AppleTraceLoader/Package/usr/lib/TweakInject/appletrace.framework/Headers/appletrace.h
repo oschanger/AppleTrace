@@ -16,3 +16,4 @@ FOUNDATION_EXPORT void APTSyncWait(void);
 // Objective C class method
 #define APTBegin APTBeginSection([NSString stringWithFormat:@"[%@]%@",self,NSStringFromSelector(_cmd)].UTF8String)
 #define APTEnd APTEndSection([NSString stringWithFormat:@"[%@]%@",self,NSStringFromSelector(_cmd)].UTF8String)
+
