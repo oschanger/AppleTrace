@@ -4,7 +4,8 @@
 1. 准备MonkeyDev环境
 2. 使用MonkeyDev安装下面两个目录的工具  
 a) appletrace ：hook主要逻辑  
-b) trace ：控制开始结束  
+b) trace ：控制开始结束 
+c) loader/AppleTraceLoader : 加载器用于加载appletrace逻辑
 3. 安装issh：  
 修改issh.sh里的trace输出目录outTracePath  
 执行目录下的install.sh
@@ -32,7 +33,7 @@ b) trace ：控制开始结束
 - 其他库打印
 
 ## 依赖
-- Cydia rsync  文件传输
+- Cydia rsync 大文件传输
 - mobile substrate
 - MonkeyDev
 
